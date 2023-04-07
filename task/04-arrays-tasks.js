@@ -10,6 +10,8 @@
  *********************************************************************************************/
 
  
+const {indexOf} = require("mocha/lib/utils");
+
 /**
  * Returns an index of the specified element in array or -1 if element is not found
  * 
@@ -272,7 +274,12 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   throw new Error('Not implemented');
+   let result = [];
+   result.push(arr[0]);
+   for (let i=1; i<arr.length; i++){
+      result.push(arr[i]+result[i-1]);
+   }
+   return result;
 }
 
 /**
@@ -287,7 +294,11 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   throw new Error('Not implemented');
+   let result = [];
+   for (let i=1; i<arr.length; i+=2){
+      result.push(arr[i]);
+   }
+   return result;
 }
 
 
@@ -306,7 +317,13 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   throw new Error('Not implemented');
+   let result = [];
+   for (let i=0; i<arr.length; i++){
+      for (let j=0; j<=i; j++){
+         result.push(arr[i]);
+      }
+   }
+   return result;
 }
 
 
@@ -324,7 +341,16 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   throw new Error('Not implemented');
+   let result = [];
+   for (let i=0; i<3; i++) {
+      if (arr.length == 0){
+         return result;
+      }
+      result.push(Math.max(...arr));
+      let index = arr.indexOf(Math.max(...arr));
+      arr.splice(index, 1);
+   }
+   return result;
 }
  
  
@@ -342,7 +368,13 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   throw new Error('Not implemented');
+   let count = 0;
+   for (let i=0; i<arr.length; i++){
+      if (typeof arr[i] == "number" && arr[i] > 0){
+         count++;
+      }
+   }
+   return count;
 }
  
 /** 
