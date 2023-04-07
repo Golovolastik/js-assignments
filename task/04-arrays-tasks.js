@@ -10,7 +10,7 @@
  *********************************************************************************************/
 
  
-const {indexOf} = require("mocha/lib/utils");
+const {indexOf, map} = require("mocha/lib/utils");
 
 /**
  * Returns an index of the specified element in array or -1 if element is not found
@@ -391,7 +391,12 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
+   const comparator = (a, b) =>{
+      const map = ['zero', 'one', 'two', 'three', 'four',
+         'five', 'six', 'seven', 'eight', 'nine']
+      return map.indexOf(a) - map.indexOf(b)
+   }
+   return arr.sort(comparator);
 }
 
 /** 
@@ -407,7 +412,9 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   throw new Error('Not implemented');
+   const result = arr.reduce((total, num) => total + num, 0);
+   return result;
+
 }
  
 /** 
@@ -423,7 +430,11 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   throw new Error('Not implemented');
+   let result = 0;
+   for (let i=0; i<arr.length; i++){
+      if (!arr[i]){result++};
+   }
+   return result;
 }
 
 /**
@@ -442,6 +453,12 @@ function getFalsyValuesCount(arr) {
  */
 function findAllOccurences(arr, item) {
    throw new Error('Not implemented');
+   // let result = 0;
+   // for (let i=0; arr.length; i++){
+   //    //if (arr[i] === item){result++};
+   //    //result++;
+   // }
+   // return result;
 }
 
 /**
