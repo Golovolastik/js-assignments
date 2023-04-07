@@ -44,11 +44,13 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   let result = [];
-   for (let i=1; i<=len*2; i+=2){
-      result.push(i);
-   }
-   return result;
+   let i=1;
+   return Array.apply(null,new Array(len)).map(()=>
+       {
+          i+=2;
+          return i-2;
+       }
+   );
 }
 
 
@@ -80,13 +82,7 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      if (arr[i] > 0){
-         result.push(arr[i]);
-      }
-   }
-   return result;
+   return arr.filter(element => element>0);
 }
 
 /**
@@ -101,13 +97,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      if (typeof arr[i] == "string"){
-         result.push(arr[i]);
-      }
-   }
-   return result;
+   return arr.filter(element => (typeof(element)==='string'));
 }
 
 /**
@@ -124,13 +114,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      if (arr[i]){
-         result.push(arr[i]);
-      }
-   }
-   return result;
+   return arr.filter(element => element);
 }
 
 /**
@@ -144,11 +128,7 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      result.push(arr[i].toUpperCase());
-   }
-   return result;
+   return arr.map(element => element.toUpperCase());
 }
 
 
@@ -163,11 +143,7 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      result.push(arr[i].length);
-   }
-   return result;
+   return arr.map(element => element.length);
 }
 
 /**
@@ -236,7 +212,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   throw new Error('Not implemented');
+   return arr.join(`\n`);
 }
 
 /**
@@ -251,11 +227,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      result.push(arr[i]*arr[i]);
-   }
-   return result
+   return arr.map(element=>element*element);
 }
 
 
@@ -274,12 +246,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   let result = [];
-   result.push(arr[0]);
-   for (let i=1; i<arr.length; i++){
-      result.push(arr[i]+result[i-1]);
-   }
-   return result;
+   let sum = 0;
+   return arr.map(element => sum += element);
 }
 
 /**
@@ -294,11 +262,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   let result = [];
-   for (let i=1; i<arr.length; i+=2){
-      result.push(arr[i]);
-   }
-   return result;
+   return arr.filter((element, index) => index % 2 == 1);
 }
 
 
@@ -341,16 +305,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   let result = [];
-   for (let i=0; i<3; i++) {
-      if (arr.length == 0){
-         return result;
-      }
-      result.push(Math.max(...arr));
-      let index = arr.indexOf(Math.max(...arr));
-      arr.splice(index, 1);
-   }
-   return result;
+   return arr.sort((a, b) =>  b - a).slice(0, 3);
 }
  
  
@@ -368,13 +323,11 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   let count = 0;
-   for (let i=0; i<arr.length; i++){
-      if (typeof arr[i] == "number" && arr[i] > 0){
-         count++;
-      }
-   }
-   return count;
+   return arr.reduce((count, element) =>
+   {
+      if(element>0 && typeof(element)==='number') count++;
+      return count;
+   } , 0);
 }
  
 /** 
