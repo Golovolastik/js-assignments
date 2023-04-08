@@ -281,13 +281,10 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   let result = [];
-   for (let i=0; i<arr.length; i++){
-      for (let j=0; j<=i; j++){
-         result.push(arr[i]);
-      }
-   }
-   return result;
+   return arr.map((element, index) =>{
+      let result = new Array(index+1);
+      return result.fill(element);
+   }).reduce((element, index) => element.concat(index), []);
 }
 
 
@@ -383,11 +380,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   let result = 0;
-   for (let i=0; i<arr.length; i++){
-      if (!arr[i]){result++};
-   }
-   return result;
+   return arr.reduce((element1, element2) => element1 + (new Boolean(element2) == false), 0);
 }
 
 /**
@@ -405,13 +398,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-   throw new Error('Not implemented');
-   // let result = 0;
-   // for (let i=0; arr.length; i++){
-   //    //if (arr[i] === item){result++};
-   //    //result++;
-   // }
-   // return result;
+   return arr.reduce((count, element) => count + (element === item), 0);
 }
 
 /**
@@ -426,7 +413,7 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-   throw new Error('Not implemented');
+   return arr.toString();
 }
 
 
@@ -455,7 +442,7 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   throw new Error('Not implemented');
+   return arr.sort((a, b) => a.country.localeCompare(b.country) || a.city.localeCompare(b.city));
 }
 
 /**
